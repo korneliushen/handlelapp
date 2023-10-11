@@ -5,7 +5,7 @@ import produktbilde from "/Users/henrik/Documents/GitHub/handlelapp/handlelapp-k
 export default function() {
     return(
         <>
-            <main className=" bg-secondary h-[360px] w-96 rounded-lg drop-shadow-sm leading-5 border-[1px] border-primary">
+            <main className=" bg-secondary h-[360px] w-80 rounded-lg drop-shadow-sm leading-5 border-[1px] border-primary">
                 <section className="h-1/2 w-full flex items-center justify-center">
                     <Image alt="produktbilde" src={produktbilde} width={40} height={40} />
                 </section>

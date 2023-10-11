@@ -13,13 +13,16 @@ export default function Home() {
           </section>
           <FilterBar />
         </div>
-        <section className=' flex h-full w-[90%] justify-center mt-6'>
+        <section className=' flex gap-2 flex-wrap  w-[91.3%] justify-center lg:justify-start items-center mt-6 '>
           <ProductCard />
-          <ProductGridAir />
           <ProductCard />
-          <ProductGridAir />
           <ProductCard />
-          <ProductGridAir />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
           <ProductCard />
         </section>
       </main>
