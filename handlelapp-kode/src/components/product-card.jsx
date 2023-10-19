@@ -1,8 +1,21 @@
+import { headers } from "next/headers"
 import Image from "next/image"
 import jokerpic from "/Users/henrik/Documents/GitHub/handlelapp/handlelapp-kode/public/Joker.svg"
 import OtherShopPriceCard from "./other-shop-price-card"
 import produktbilde from "/Users/henrik/Documents/GitHub/handlelapp/handlelapp-kode/public/litago-dobbel-sjokolade.avif"
+
 export default function() {
+    const headersInstance = headers()
+
+    async function getProducts() {
+        const res = await fetch('https://kassal.app/api/v1/products',{
+            headers: { authorization:  'Bearer ow52tFar21lou9OIplcp5U6UtOwiY3RR9xk1Bc4P'},
+        })
+        const products = await res.json()
+        console.log(products)
+        return products
+    }
+    getProducts()
     return(
         <>
             <main className=" bg-secondary h-[360px] w-80 rounded-lg drop-shadow-sm leading-5 border-[1px] border-primary">
