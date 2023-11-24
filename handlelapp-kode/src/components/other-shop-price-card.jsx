@@ -1,12 +1,12 @@
 import Image from "next/image"
 import BunnprisPic from "/Users/henrik/Documents/GitHub/handlelapp/handlelapp-kode/public/Bunnpris.svg"
-export default function({ firstStorePrice }) {
+export default function({ price, img }) {
     return(
         <>
-            <main className="h-8 w-20 rounded-full m-0.5 border-accent border-2 p-2 flex justify-between items-center">
-                <div className="text-xs">{firstStorePrice}</div>
+            <main className="h-8 min-w-fit  rounded-full m-0.5 border-accent border-2 py-2 flex  px-3 justify-between items-center">
+                <div className="text-xs pr-1">{price}kr</div>
                 <section>
-                    <Image alt="joker" src={BunnprisPic} width={15} height={15} />
+                    <Image className=" rounded-sm" alt="joker" src={img} width={20} height={20} />
                 </section>
             </main>
         </>

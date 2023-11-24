@@ -6,7 +6,7 @@ module.exports = {
       remotePatterns: [
         {
           protocol: 'https',
-          hostname: 'bilder.ngdata.no',
+          hostname: '**',
           port: '',
           pathname: '/**',
         },
