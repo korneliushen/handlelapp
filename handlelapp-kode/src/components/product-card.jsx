@@ -9,7 +9,7 @@ export default function({productName, productVendor, productImage, storeLogo, sm
         <>
             <li className="bg-white w-full rounded-lg drop-shadow-sm leading-5 border-[1px] border-primary">
                 <section className="h-[10em] w-full flex items-center justify-center relative overflow-hidden">
-                    <Image className="rounded-lg object-contain" alt="produktbilde" src={productImage} fill={true}/>
+                    <Image className="rounded-lg object-contain" alt="produktbilde" src={productImage} priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" fill={true}/>
                 </section>
                 <section className="h-1/2 w-full bg-primary rounded-b-[0.7rem] p-2">
                     <div className=" h-[74px] w-full flex ">

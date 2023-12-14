@@ -1,14 +1,11 @@
-import Image from 'next/image'
-import FilterBar from '../components/filter-bar'
-import ProductCard from '../components/product-card'
-import ArrowsPages from '@/components/arrows-pages'
-import { RiContactsBookUploadFill } from 'react-icons/ri'
+"use server"
 import Front from './front'
+import { Suspense } from 'react'
 
 // Henter data for å få info som enkelt produkt, pris, navn, bilde, url, osv. og hvor mange som skal vises og sidenummer
-let pageNumber= 1
+let pageNumber = 220
 async function getProducts() {
-  const res = await fetch(`https://kassal.app/api/v1/products?size=${10}&page=${pageNumber}`,{
+  const res = await fetch(`https://kassal.app/api/v1/products?size=${20}&page=${pageNumber}`,{
       headers: { authorization:  'Bearer ow52tFar21lou9OIplcp5U6UtOwiY3RR9xk1Bc4P'},
   })
   if (!res.ok) {
@@ -23,44 +20,68 @@ let productName = ''
 let productVendor = ''
 let productImage = ''
 let storeLogo = ''
+
 {data.data.map((product) => {
   return url = product.url, productName = product.name, productVendor = product.vendor, productImage = product.image, storeLogo = product.store.logo
 })}
 
 
-async function getProductsCompare() {
+async function GetProductsCompare() {
   const compare_res = await fetch(`https://kassal.app/api/v1/products/find-by-url/compare?url=${url}`,{
       method: 'GET',
       headers: { authorization:  'Bearer ow52tFar21lou9OIplcp5U6UtOwiY3RR9xk1Bc4P'},
   })
   return compare_res.json()
 }
-const compare_res = await getProductsCompare()
-const prices = []
+const compare_res = await GetProductsCompare()
 
-console.log(compare_res)
-for (let i = 0; i < compare_res.data.products.length; i++) {
-  prices.push(compare_res.data.products[i].current_price)
-}
-let sortedPrices = prices
-.filter((price) => price)
-.sort((a, b) => a.price - b.price);
-let smallestNumber = 100
-for (let i = 0; i < sortedPrices.length; i++) {
-  if (sortedPrices[i].price <= smallestNumber) {
-      smallestNumber = sortedPrices[i].price
-  }
-}
-sortedPrices.shift()
 
-if (productName.length > 31) {
-  productName = productName.substring(0, 31) + "..."
-}
-if (productVendor.length > 16) {
-  productVendor = productVendor.substring(0, 16) + "..."
-}
 
 
 export default async function Home() {
-  return <Front data={data} smallestNumber={smallestNumber} sortedPrices={sortedPrices} compare_res={compare_res} />
-}
+  const prices = []
+  // Samler prisene fra produktene i et array
+  for (let i = 0; i < compare_res.data.products.length; i++) {
+    prices.push(compare_res.data.products[i].current_price)
+  }
+  let sortedPrices = prices
+  .filter((price) => price)
+  .sort((a, b) => a.price - b.price);
+
+  // Finner den laveste prisen
+  let smallestNumber = 100
+  for (let i = 0; i < sortedPrices.length; i++) {
+    if (sortedPrices[i].price <= smallestNumber) {
+        smallestNumber = sortedPrices[i].price
+    }
+  }
+  console.log(compare_res.data.products)
+
+  // Fjerner den laveste prisen fra arrayet
+
+  sortedPrices.shift()
+
+  
+  if (productName.length > 31) {
+    productName = productName.substring(0, 31) + "..."
+  }
+  if (productVendor.length > 16) {
+    productVendor = productVendor.substring(0, 16) + "..."
+  }
+  const ownData = [data];
+  for (let i = 0; i < ownData[0].data.length; i++) {
+    ownData[0].data[i] = {
+      ...ownData[0].data[i],
+      smallestNum: smallestNumber,
+      sortedPrices: sortedPrices,
+    };
+  }
+
+  console.log(url)
+
+  return (
+
+  <Suspense fallback={<div>Loading…</div>}>
+    <Front ownData={ownData} data={data} smallestNumber={smallestNumber} sortedPrices={sortedPrices} compare_res={compare_res} />
+  </Suspense>
+)}
