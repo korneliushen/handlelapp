@@ -11,7 +11,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation"
 
 
 
-export default function Home({ data, pageNumber, compare_res}) {
+export default function Home({ data, pageNumber, compare_res, API_KEY}) {
   const prices = []
   // Samler prisene fra produktene i et array
   for (let i = 0; i < compare_res.data.products.length; i++) {
@@ -61,17 +61,14 @@ export default function Home({ data, pageNumber, compare_res}) {
         }
         replace(`${pathname}?${params.toString()}`);
             const res = await fetch(`https://kassal.app/api/v1/products?search=${q}`,{
-                headers: { authorization:  'Bearer ow52tFar21lou9OIplcp5U6UtOwiY3RR9xk1Bc4P',
+                headers: { authorization:  API_KEY,
                 'Content-Type': 'application/json',},
             })
             if (res.status === 200) {
                 const data = await res.json()
                 setOwnData([data])
                 console.log(data)
-            } else {
-                console.log('error')
-            }
-
+    }
     }
   return (
     <>

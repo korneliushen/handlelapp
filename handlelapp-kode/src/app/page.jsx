@@ -35,7 +35,7 @@ async function GetProductsCompare() {
 }
 const compare_res = await GetProductsCompare()
 
-
+const API_KEY = process.env.API_KEY
 
 
 export default async function Home() {
@@ -77,6 +77,6 @@ export default async function Home() {
   return (
 
   <Suspense fallback={<div>Loading…</div>}>
-    <Front ownData={ownData} data={data} smallestNumber={smallestNumber} sortedPrices={sortedPrices} compare_res={compare_res} />
+    <Front ownData={ownData} data={data} API_KEY={API_KEY} smallestNumber={smallestNumber} sortedPrices={sortedPrices} compare_res={compare_res} />
   </Suspense>
 )}
