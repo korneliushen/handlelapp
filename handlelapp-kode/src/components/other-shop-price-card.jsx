@@ -1,5 +1,4 @@
 import Image from "next/image"
-import BunnprisPic from "/Users/henrik/Documents/GitHub/handlelapp/handlelapp-kode/public/Bunnpris.svg"
 export default function({ price, img }) {
     return(
         <>

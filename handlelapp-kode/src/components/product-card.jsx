@@ -1,8 +1,6 @@
 
 import Image from "next/image"
-import jokerpic from "/Users/henrik/Documents/GitHub/handlelapp/handlelapp-kode/public/Joker.svg"
 import OtherShopPriceCard from "./other-shop-price-card"
-import produktbilde from "/Users/henrik/Documents/GitHub/handlelapp/handlelapp-kode/public/litago-dobbel-sjokolade.avif"
 
 export default function({productName, productVendor, productImage, storeLogo, smallestNumber, sortedPrices, compare_res}) {
     if (productName.length > 31) {
