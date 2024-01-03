@@ -6,7 +6,7 @@ import { Suspense } from 'react'
 let pageNumber = 220
 async function getProducts() {
   const res = await fetch(`https://kassal.app/api/v1/products?size=${20}&page=${pageNumber}`,{
-      headers: { authorization:  'Bearer ow52tFar21lou9OIplcp5U6UtOwiY3RR9xk1Bc4P'},
+      headers: { authorization:  process.env.API_KEY},
   })
   if (!res.ok) {
     throw new Error('Failed to fetch products')
@@ -29,7 +29,7 @@ let storeLogo = ''
 async function GetProductsCompare() {
   const compare_res = await fetch(`https://kassal.app/api/v1/products/find-by-url/compare?url=${url}`,{
       method: 'GET',
-      headers: { authorization:  'Bearer ow52tFar21lou9OIplcp5U6UtOwiY3RR9xk1Bc4P'},
+      headers: { authorization:  process.env.API_KEY},
   })
   return compare_res.json()
 }
@@ -62,12 +62,7 @@ export default async function Home() {
   sortedPrices.shift()
 
   
-  if (productName.length > 31) {
-    productName = productName.substring(0, 31) + "..."
-  }
-  if (productVendor.length > 16) {
-    productVendor = productVendor.substring(0, 16) + "..."
-  }
+  
   const ownData = [data];
   for (let i = 0; i < ownData[0].data.length; i++) {
     ownData[0].data[i] = {

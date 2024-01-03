@@ -5,6 +5,12 @@ import OtherShopPriceCard from "./other-shop-price-card"
 import produktbilde from "/Users/henrik/Documents/GitHub/handlelapp/handlelapp-kode/public/litago-dobbel-sjokolade.avif"
 
 export default function({productName, productVendor, productImage, storeLogo, smallestNumber, sortedPrices, compare_res}) {
+    if (productName.length > 31) {
+        productName = productName.substring(0, 31) + "..."
+      }
+      if (productVendor?.length > 16) {
+        productVendor = productVendor.substring(0, 16) + "..."
+      }
     return(
         <>
             <li className="bg-white w-full rounded-lg drop-shadow-sm leading-5 border-[1px] border-primary">

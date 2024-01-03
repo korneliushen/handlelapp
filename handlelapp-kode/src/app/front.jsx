@@ -44,12 +44,12 @@ export default function Home({ data, pageNumber, compare_res}) {
     };
   }
 
-  const [q, setQ] = useState('')
-    const searchParams = useSearchParams()
-    const pathname = usePathname()
-    const { replace } = useRouter()
-
-    const search = searchParams.get('search')
+  const searchParams = useSearchParams()
+  const [q, setQ] = useState(searchParams.get('search') || '')
+  const pathname = usePathname()
+  const { replace } = useRouter()
+  
+  const search = searchParams.get('search')
     
     async function getProductsSearch(e) {
         e.preventDefault()
@@ -80,7 +80,7 @@ export default function Home({ data, pageNumber, compare_res}) {
             <h1 className='text-5xl my-3 text-black'>Dagligvarer</h1>
           </section>
           <FilterBar getProductsSearch={getProductsSearch} setQ={setQ} search={search} />
-          <ul className='gap-x-4 gap-y-4 grid grid-cols-1 w-[85%] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 items-center mt-6 overflow-hidden '>
+          <ul className='gap-x-4 gap-y-4 grid grid-cols-1 w-[85%] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center mt-6 overflow-hidden '>
             {ownData[0].data.map((product, i) => {
               return <ProductCard key={i} productName={product.name} storeLogo={product.store.logo} productVendor={product.vendor} productImage={product.image}  data={data} url={product.url} smallestNumber={product.smallestNum} sortedPrices={sortedPrices} compare_res={compare_res}/> 
             })}
