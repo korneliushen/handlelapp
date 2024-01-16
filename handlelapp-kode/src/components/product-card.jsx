@@ -2,7 +2,7 @@
 import Image from "next/image"
 import OtherShopPriceCard from "./other-shop-price-card"
 
-export default function({productName, productVendor, productImage, storeLogo, price}) {
+export default function({productName, productVendor, productImage, storeLogo, smallestNumber, sortedPrices, compare_res}) {
     if (productName.length > 31) {
         productName = productName.substring(0, 31) + "..."
       }
@@ -28,7 +28,7 @@ export default function({productName, productVendor, productImage, storeLogo, pr
                         <section className="w-1/2 h-full flex justify-end items-center">
                             <div className="flex">
                                 <div className=" text-lg flex items-center">
-                                    <span>{price}kr</span>
+                                    <span>{smallestNumber}kr</span>
                                 </div>
                                 <div className="h-1 w-1"></div>
                                 <div className="w-10 h-10 relative">
@@ -38,7 +38,14 @@ export default function({productName, productVendor, productImage, storeLogo, pr
                             </div>
                         </section>
                     </div>
-                    <div className=" h-[50px] w-full flex items-center justify-center">
+                    <div className=" h-8 w-full flex justify-between">
+                        <div className=" h-full  flex items-center overflow-x-auto overflow-y-hidden scrollbar-hide">
+                            {sortedPrices.map((price, index) => {
+                                return compare_res.data.products[index].store.logo ? <OtherShopPriceCard key={index} price={price.price} img={compare_res.data.products[index].store.logo} /> : <div>e</div>
+                            })}
+                        </div>
+                    </div>
+                    <div className=" h-[50px] w-full flex items-center justify-center mt-2">
                         <button className=" h-12 w-[98%] bg-accent rounded-full text-sm">Legg i handlekurv</button>
                     </div>
                 </section>
