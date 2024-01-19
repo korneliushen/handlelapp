@@ -2,10 +2,10 @@
 
 import * as z from "zod"
 
-import { LoginSchema } from "@/lib/schemas"
+import { RegisterSchema } from "@/lib/schemas"
 
-export async function login(values) {
-    const validatedFields = LoginSchema.safeParse(values)
+export async function register(values) {
+    const validatedFields = RegisterSchema.safeParse(values)
     if (!validatedFields.success) {
         return {error: "invalid fields"}
     }

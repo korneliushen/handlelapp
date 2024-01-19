@@ -1,6 +1,6 @@
-import { LoginForm } from "./login-form"
+import { LoginForm } from "../../../components/auth/login-form"
 
-export default function() {
+export default function () {
     return (
         <>
             <LoginForm />

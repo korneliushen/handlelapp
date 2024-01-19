@@ -1,12 +1,12 @@
 'use client'
 import CardWrapper from "@/components/auth/card-wrapper"
-import { useForm } from "react-hook-form"
+import { set, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { LoginSchema } from "@/lib/schemas"
+import { RegisterSchema } from "@/lib/schemas"
 
 import { Input } from "@/components/ui/input"
 
-import { useTransition } from "react"
+import { useTransition, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 
@@ -20,12 +20,16 @@ import {
 } from "@/components/ui/form"
 import { FormError } from "@/components/form-error"
 import { FormSuccess } from "@/components/form-succes"
-import { login } from "@/actions/login"
+import { register } from "@/actions/register"
 
-export function LoginForm() {
+export function RegisterForm() {
+
+    const [success, setSuccess] = useState("")
+    const [error, setError] = useState("")
+
     const [isPending, startTransition] = useTransition()
     const form = useForm({
-        resolver: zodResolver(LoginSchema),
+        resolver: zodResolver(RegisterSchema),
         defaultValues: {
             email: '',
             password: '',
@@ -33,15 +37,21 @@ export function LoginForm() {
     })
 
     const onSubmit = (values) => {
+        setSuccess("")
+        setError("")
         startTransition(() => {
-            login(values)
+            register(values)
+                .then((data) => {
+                    setError(data.error)
+                    setSuccess(data.success)
+                })
         })
     }
     return (
         <>
-            <CardWrapper headerLabel={'Velkommen tilbake'}
-                backButtonLabel={"Har du ikke en konto?"}
-                backButtonHref={'./auth/register'}
+            <CardWrapper headerLabel={'Lag en konto'}
+                backButtonLabel={"Har du allerede en konto?"}
+                backButtonHref={'./login'}
                 showSocial={true} >
                 <Form {...form}>
                     <form
@@ -49,6 +59,25 @@ export function LoginForm() {
                         className="space-y-6"
                     >
                         <div className="space-y-4">
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field, formState }) => (
+                                    <>
+                                        <FormItem>
+                                            <FormLabel>Navn</FormLabel>
+                                        </FormItem>
+                                        <FormControl>
+                                            <Input
+                                                disabled={isPending}
+                                                placeholder="Ola Nordmann"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </>
+                                )}
+                            />
                             <FormField
                                 control={form.control}
                                 name="email"
@@ -90,10 +119,10 @@ export function LoginForm() {
                                 )}
                             />
                         </div>
-                        <FormError message={''} />
-                        <FormSuccess message={''} />
+                        <FormError message={error} />
+                        <FormSuccess message={success} />
                         <Button type="submit" className='w-full'>
-                            Logg inn
+                            Lag konto
                         </Button>
                     </form>
                 </Form>

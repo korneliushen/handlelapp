@@ -6,8 +6,6 @@ import ArrowsPages from '@/components/arrows-pages'
 import { RiContactsBookUploadFill } from 'react-icons/ri'
 import { useState } from "react"
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
-import { Button } from '@/components/ui/button'
-import LoginButton from '@/components/auth/login-button'
 
 
 
@@ -55,11 +53,8 @@ export default function Home({ data, pageNumber, API_KEY }) {
         <section className='w-[94%] h-20 flex justify-between items-center'>
           <h1 className='text-5xl my-3 text-black'>Dagligvarer</h1>
         </section>
-        <section className='w-10/12 h-16 flex justify-end space-x-4 items-center'>
+        <section className='w-10/12 h-16 flex justify-end space-x-4 items-center '>
           <FilterBar getProductsSearch={getProductsSearch} setQ={setQ} search={search} />
-          <LoginButton>
-            <Button>Login</Button>
-          </LoginButton>
         </section>
         <ul className='gap-x-4 gap-y-4 grid grid-cols-1 w-[85%] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center mt-6 overflow-hidden '>
           {ownData[0].data.map((product, i) => {
