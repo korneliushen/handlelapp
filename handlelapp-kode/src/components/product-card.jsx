@@ -1,8 +1,8 @@
-
+'use client'
 import Image from "next/image"
 import OtherShopPriceCard from "./other-shop-price-card"
 
-export default function ({ productName, productVendor, productImage, storeLogo, price }) {
+export default function ({ productName, productVendor, productImage, storeLogo, price, setIsLoading }) {
     if (productName.length > 31) {
         productName = productName.substring(0, 31) + "..."
     }
@@ -13,7 +13,7 @@ export default function ({ productName, productVendor, productImage, storeLogo, 
         <>
             <li className="bg-white w-full rounded-lg drop-shadow-md leading-5 ">
                 <section className="h-[10em] w-full bg-white rounded-t-lg flex items-center justify-center relative overflow-hidden">
-                    <Image className="rounded-lg object-contain" alt="produktbilde" src={productImage} priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" fill={true} />
+                    <Image className="rounded-lg object-contain" alt="Det finnes ikke produktbilde" src={productImage} placeholder="empty" priority={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" fill={true} />
                 </section>
                 <section className="h-1/2 w-full bg-accent rounded-b-lg p-2">
                     <div className=" h-[74px] w-full flex ">
