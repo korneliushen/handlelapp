@@ -71,7 +71,7 @@ export default function Home({ data, pageNumber, API_KEY }) {
               productVendor={product.vendor}
               productImage={product.image}
               data={data} url={product.url}
-              setIsLoading={setIsLoading} />
+              id={product.id} />
 
           })}
         </ul>
